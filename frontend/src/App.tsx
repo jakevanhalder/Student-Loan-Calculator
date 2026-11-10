@@ -1,23 +1,22 @@
-import { tss } from 'tss-react/mui'
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+import CssBaseline from "@mui/material/CssBaseline";
 
-const useStyles = tss.create(() => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
-  },
-}));
+const router = createRouter({ routeTree });
 
-function App() {
-  const { classes } = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <p>Welcome to the Student Loan Calculator!</p>
-    </div>
-  )
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
 }
 
-export default App
+const App = () => {
+  return (
+    <>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </>
+  );
+};
+
+export default App;
